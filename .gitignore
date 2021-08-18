@@ -256,3 +256,5 @@ zsdoc/data
 my_settings.py
 products.csv
 db_uploader.py
+__pycache__
+media
