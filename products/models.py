@@ -48,7 +48,7 @@ class Size(models.Model):
         db_table = 'sizes'
 
 class Color(models.Model):
-    nane = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
 
     class Meta:
         db_table = 'colors'
