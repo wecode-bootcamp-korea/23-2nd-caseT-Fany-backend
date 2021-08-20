@@ -66,9 +66,9 @@ class CustomProduct(models.Model):
     font_color   = models.ForeignKey('FontColor', on_delete=models.SET_NULL, null=True)
     font_style   = models.ForeignKey('FontStyle', on_delete=models.SET_NULL, null=True)
     custom_image = models.ForeignKey('CustomImage', on_delete=models.SET_NULL, null=True)
-    custom_text  = models.CharField(max_length=20)
-    coordinate_x = models.CharField(max_length=20)
-    coordinate_y = models.CharField(max_length=20) 
+    custom_text  = models.CharField(max_length=20, null=True)
+    coordinate_x = models.CharField(max_length=20, null=True)
+    coordinate_y = models.CharField(max_length=20, null=True) 
 
     class Meta:
         db_table = 'custom_products'
