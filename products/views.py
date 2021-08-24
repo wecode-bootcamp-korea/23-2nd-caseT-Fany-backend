@@ -27,8 +27,8 @@ class ProductView(View):
                 'price'             : '{:.0f}'.format(product.price),
                 'avg_score'         : product.avg_score,
                 'count_rating'      : [{'1' : product.one, '2' :product.two, '3' : product.three, '4' : product.four, '5': product.five}],
-                'main_image'        : product.main_image.url,
-                'description_image' : product.description_image.url,
+                'main_image'        : product.main_image,
+                'description_image' : product.description_image,
                 'product_option'    : [{
                     'size_id'       : product_option.size.id,      
                     'size'          : product_option.size.select_size,
@@ -37,7 +37,7 @@ class ProductView(View):
                     'stock'         : product_option.stock,
                     'sales'         : product_option.sales,
                 }for product_option in product.productoption_set.all()],
-                'cloth_color_image' : [image.image_file.url for image in product.image_set.all()],
+                'cloth_color_image' : [image.image_file for image in product.image_set.all()],
                 'review'            : [{
                     'user'          : review.user.email,
                     'text'          : review.text,
