@@ -1,4 +1,4 @@
-import json, re, bcrypt, jwt
+import json
 
 from django.views           import View
 from django.http            import JsonResponse
@@ -6,6 +6,7 @@ from django.db              import transaction
 from django.db.models       import Avg, Count, Q, Sum
 
 from products.models        import Product, CustomProduct, ProductOption, Size, Color, FontColor, FontStyle, CustomImage
+from carts.models           import Cart
 
 class ProductView(View):
     def get(self, request, product_id):
@@ -43,11 +44,12 @@ class ProductView(View):
                     'text'          : review.text,
                     'score'         : review.score,
                     'create_at'     : review.create_at,
+                    'image'         : review.image,
                 }for review in product.review_set.all()],
             }
 
             return JsonResponse({'MESSAGE':result}, status=200)
-
+            
         except KeyError:
             return JsonResponse({'MESSAGE':'KEY_ERROR'}, status = 400)
 
