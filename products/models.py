@@ -61,14 +61,15 @@ class Image(models.Model):
         db_table = 'images'
 
 class CustomProduct(models.Model):
-    user         = models.ForeignKey('users.User', on_delete=models.CASCADE)
-    product      = models.ForeignKey('Product', on_delete=models.CASCADE)
-    font_color   = models.ForeignKey('FontColor', on_delete=models.SET_NULL, null=True)
-    font_style   = models.ForeignKey('FontStyle', on_delete=models.SET_NULL, null=True)
-    custom_image = models.ForeignKey('CustomImage', on_delete=models.SET_NULL, null=True)
-    custom_text  = models.CharField(max_length=20)
-    coordinate_x = models.CharField(max_length=20)
-    coordinate_y = models.CharField(max_length=20) 
+    user           = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    product        = models.ForeignKey('Product', on_delete=models.CASCADE)
+    font_color     = models.ForeignKey('FontColor', on_delete=models.SET_NULL, null=True)
+    font_style     = models.ForeignKey('FontStyle', on_delete=models.SET_NULL, null=True)
+    custom_image   = models.ForeignKey('CustomImage', on_delete=models.SET_NULL, null=True)
+    custom_text    = models.CharField(max_length=20)
+    coordinate_x   = models.CharField(max_length=20)
+    coordinate_y   = models.CharField(max_length=20)
+    product_option = models.ForeignKey('ProductOption',on_delete=models.SET_NULL, null=True )
 
     class Meta:
         db_table = 'custom_products'
