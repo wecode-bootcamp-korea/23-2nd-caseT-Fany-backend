@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 
 from pathlib import Path
-from my_settings import DATABASES, SECRET_KEY
+from my_settings import DATABASES, SECRET_KEY, AWS_S3_ACCESS_KEY_ID, AWS_S3_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -166,7 +166,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_S3_SECURE_URLS = False       # use http instead of https
 AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related query parameters for requests
 
-AWS_S3_ACCESS_KEY_ID = 'AKIAXYYWDYIONR3BAV5G'
-AWS_S3_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'wecode-23-casetfany'
-AWS_S3_FILE_OVERWRITE = False
+AWS_S3_ACCESS_KEY_ID = AWS_S3_ACCESS_KEY_ID
+AWS_S3_SECRET_ACCESS_KEY = AWS_S3_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
