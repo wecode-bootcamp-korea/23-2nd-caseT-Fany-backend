@@ -1,11 +1,12 @@
-import json, unittest
+import json, unittest, jwt
 
 from django.http import response
-from django.test import TestCase, Client, client
+from django.test import TestCase, Client
 
 from products.models import *
 from reviews.models import Review
 from users.models import User
+from my_settings import SECRET_KEY, const_algorithm
 
 class ProductViewTest(TestCase):
     @classmethod
