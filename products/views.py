@@ -73,7 +73,7 @@ class ProductsView(View):
             filters &= Q(detail_category__sub_category = sub_category)
 
         if detail_category :
-            filters &= Q(detail_category_in = detail_category)
+            filters &= Q(detail_category__in = detail_category)
         
         if color :
             filters &= Q(productoption__color__in = color)

@@ -3,7 +3,7 @@ import json, re, bcrypt, jwt
 from django.views           import View
 from django.http            import JsonResponse
 from django.db              import transaction
-from django.db.models       import Q
+from django.db.models       import Q, Sum, F
 
 from products.models        import Product,ProductOption, Size, Color, CustomImage, CustomProduct, FontColor, FontStyle
 from carts.models           import Cart
@@ -55,3 +55,61 @@ class CustomProductView(View):
 
         except KeyError:
             return JsonResponse({'MESSAGE':'KEY_ERROR'}, status = 400)
+
+class CartView(View):
+    @LoginDecorator
+    def get(self, request):
+        carts = Cart.objects.filter(user = request.user)
+        
+        results=[{
+            "cart_id"           : cart.id,
+            "custom_product_id" : cart.custom_product.id,
+            "name"              : cart.custom_product.product.name,
+            "price"             : round(cart.custom_product.product.price),
+            "size"              : cart.custom_product.product_option.size.select_size,
+            "color"             : cart.custom_product.product_option.color.name,
+            "main_image"        : cart.custom_product.product.main_image,
+            "quantity"          : cart.quantity,
+            "total_price"       : round(cart.custom_product.product.price) * cart.quantity,
+        }for cart in carts]
+
+        final_total_price = carts.aggregate(price = Sum(F("quantity") * F("custom_product__product__price")))["price"]
+
+        return JsonResponse({'results': results , 'final_total_price': round(final_total_price)}, status=200)
+    
+    @LoginDecorator
+    @transaction.atomic
+    def patch(self,request,cart_id):
+        data   = json.loads(request.body)
+        cart   = Cart.objects.get(id=cart_id, user = request.user)
+        product_option = cart.custom_product.product_option
+
+        if product_option.stock < cart.quantity + data['quantity']:
+            return JsonResponse({'message':'OUT_OF_STOCK'},status = 400)
+        
+        cart.quantity += data['quantity']
+        cart.save()
+
+        product_option.stock -= data['quantity']
+        product_option.sales += data['quantity']
+        product_option.save()
+
+        return JsonResponse({'message':'SUCCESS'}, status = 200)
+
+    @LoginDecorator
+    @transaction.atomic
+    def delete(self,request,cart_id):
+        if not Cart.objects.filter(id = cart_id, user = request.user).exists():
+            return JsonResponse({'message': 'NOT_FOUND'}, status = 404)
+
+        cart           = Cart.objects.get(id=cart_id, user = request.user)
+        product_option = cart.custom_product.product_option
+        custom_product = cart.custom_product
+
+        product_option.stock += cart.quantity
+        product_option.sales -= cart.quantity
+        product_option.save()
+        cart.delete()
+        custom_product.delete()
+
+        return JsonResponse({'message': 'SUCCESS'}, status = 200)
