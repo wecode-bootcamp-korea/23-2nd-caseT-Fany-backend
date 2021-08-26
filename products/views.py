@@ -44,7 +44,7 @@ class ProductView(View):
                     'text'          : review.text,
                     'score'         : review.score,
                     'create_at'     : review.create_at,
-                    'image'         : review.image,
+                    'image'         : review.image_url,
                 }for review in product.review_set.all()],
             }
 
