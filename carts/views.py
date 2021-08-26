@@ -73,7 +73,7 @@ class CartView(View):
             "total_price"       : round(cart.custom_product.product.price) * cart.quantity,
         }for cart in carts]
 
-        final_total_price = carts.aggregate(price = Sum(F("quantity") * F("custom_product__product__price")))["price"]
+        final_total_price = carts.aggregate(price = Sum(F("quantity") * F("custom_product__product__price")))["price"] or 0
 
         return JsonResponse({'results': results , 'final_total_price': round(final_total_price)}, status=200)
     
