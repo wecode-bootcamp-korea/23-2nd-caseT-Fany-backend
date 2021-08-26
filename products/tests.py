@@ -71,13 +71,19 @@ class ProductViewTest(TestCase):
         ProductOption.objects.all().delete()
         Review.objects.all().delete()
 
-    def test_detailview_get_success(self):
+    def test_customproduct_post_success(self):
         client = Client()
+        token = jwt.encode({'id':1}, SECRET_KEY, algorithm=const_algorithm)
+        product = {
+            'size_id' : 1,
+            'color_id' : 1
+        }
 
-        response = client.get('/products?product_id=1')
+        headers  = {'HTTP_Authoriazation': token}
+        response = client.post('/products/1/custom', json.dumps(product), content_type='application/json', **headers)
         self.assertEqual(response.status_code, 200)
 
-    def test_detailview_get_fail(self):
+    def test_customproduct_no_data_post_fail(self):
         client = Client()
 
         response = client.get('/products?product_id=9999')

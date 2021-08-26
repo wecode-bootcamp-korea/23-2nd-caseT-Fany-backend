@@ -25,9 +25,9 @@ class Product(models.Model):
     name              = models.CharField(max_length=200)
     price             = models.DecimalField(max_digits=10, decimal_places=2)
     create_at         = models.DateTimeField(auto_now_add=True)
-    description_image = models.URLField(null=True)
+    description_image = models.URLField(null=True, max_length=1000)
     detail_category   = models.ForeignKey('DetailCategory', on_delete=models.SET_NULL, null=True)
-    main_image        = models.URLField(null=True)
+    main_image        = models.URLField(null=True, max_length=1000)
 
     class Meta:
         db_table = 'products'
@@ -55,7 +55,7 @@ class Color(models.Model):
         db_table = 'colors'
 
 class Image(models.Model):
-    image_file = models.URLField(null=True)
+    image_file = models.URLField(null=True, max_length=1000)
     product    = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
 
     class Meta:
@@ -88,7 +88,7 @@ class FontStyle(models.Model):
         db_table = 'font_styles'
 
 class CustomImage(models.Model):
-    image = models.URLField(null=True)
+    image = models.URLField(null=True, max_length=1000)
 
     class Meta:
         db_table = 'custom_images'
