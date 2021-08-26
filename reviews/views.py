@@ -49,7 +49,16 @@ class ReviewView(View):
             review.score= score
             review.save()
 
-            return JsonResponse({'MESSAGE':'SUCCESS'},status = 201)
+            result = {
+                'user'         : request.user.id,
+                'product_id'   : review.product_id,
+                'product_name' : review.product.name,
+                'score'        : review.score,
+                'text'         : review.text,
+                'image_url'    : review.image_url,
+            }
+
+            return JsonResponse({'MESSAGE':result},status = 201)
     
         except KeyError:
             return JsonResponse({'MESSAGE':'KEY_ERROR'}, status=400)
