@@ -54,6 +54,19 @@
 - 티셔츠 커스텀 기능(컬러, 사이즈, 텍스트작성, 텍스트폰트, 텍스트컬러 등등...)
 - 식당에 대한 리뷰 평점순으로 나열, 페이지네이션.
 - 리뷰 생성, 수정, 삭제
+### [회원가입(카카오 소셜 로그인)]
+![](https://i.ibb.co/JrfJM2N/image.gif)
+### [네비게이션 바]
+![](https://i.ibb.co/0jM581m/nav.gif)
+### [아코디언 메뉴]
+![](https://i.ibb.co/C1wqKcg/image.gif)
+### [메인 상품 필터]
+![](https://i.ibb.co/DDDVHTg/image.gif)
+### [제품 상세 페이지]
+![](https://i.ibb.co/gRKRbBp/image.gif)
+### [제품 리뷰 기능]
+![](https://i.ibb.co/DVkvdp0/image.gif)
+### [장바구니 기능 구현]
 
 <br>
 소셜사이트의 기본적인 기능들을 다루며 전반적인 플로우와 소셜 로그인의 프로세스를 배울 수 있었습니다.
